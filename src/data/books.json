@@ -1,0 +1,16 @@
+[
+  {
+    "imgSrc": "../assets/book-black.jpg",
+    "name": "Black book",
+    "description": "Awesome book with black cover!",
+    "priceInCZK": "299",
+    "inStock": "5+"
+  },
+  {
+    "imgSrc": "../assets/book-blue.jpg",
+    "name": "Blue book",
+    "description": "Literally awesomeness itself with blue cover.",
+    "priceInCZK": "310",
+    "inStock": "3"
+  }
+]

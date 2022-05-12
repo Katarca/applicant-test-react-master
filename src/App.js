@@ -1,12 +1,13 @@
-import cart from "./cart.png";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { GlobalStyle, GlobalStyled } from "./";
 import { StyledApp } from "./page-style/StyledApp";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <Router>
       <StyledApp>
+        <Navbar />
         <Routes>
           <Route path="/" />
           <Route path="/cart" />
