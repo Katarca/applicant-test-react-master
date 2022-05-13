@@ -1,17 +1,22 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { GlobalStyle, GlobalStyled } from "./";
-import { StyledApp } from "./page-style/StyledApp";
+import { GlobalStyle } from "./";
+import { BookList, MainArea, StyledApp } from "./page-style/StyledApp";
 import Navbar from "./components/Navbar/Navbar";
+import data from "./data/books.json";
+import BookCard from "./components/BookCard/BookCard";
+import Img from "./components/Img/Img";
 
 function App() {
   return (
     <Router>
       <StyledApp>
         <Navbar />
-        <Routes>
-          <Route path="/" />
-          <Route path="/cart" />
-        </Routes>
+        <MainArea>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" />
+          </Routes>
+        </MainArea>
         <GlobalStyle />
       </StyledApp>
     </Router>
@@ -104,5 +109,19 @@ function App() {
   //     </div>
   //   );
 }
+
+const Home = () => {
+  return (
+    <BookList>
+      {data.map((book, i) => (
+        <BookCard
+          key={i}
+          bookObj={book}
+          imgPath={require("./assets/" + book.character + ".jpg")}
+        />
+      ))}
+    </BookList>
+  );
+};
 
 export default App;

@@ -1,16 +1,50 @@
 [
   {
-    "imgSrc": "../assets/book-black.jpg",
+    "imgSrc": "../../assets/book-black.jpg",
+    "character": "book-black",
     "name": "Black book",
     "description": "Awesome book with black cover!",
     "priceInCZK": "299",
-    "inStock": "5+"
+    "inStock": "6"
   },
   {
-    "imgSrc": "../assets/book-blue.jpg",
+    "imgSrc": "../../assets/book-blue.jpg",
+    "character": "book-blue",
     "name": "Blue book",
     "description": "Literally awesomeness itself with blue cover.",
     "priceInCZK": "310",
     "inStock": "3"
+  },
+  {
+    "imgSrc": "../../assets/book-green.jpg",
+    "character": "book-green",
+    "name": "Green book",
+    "description": "Great book with cover like grass.",
+    "priceInCZK": "310",
+    "inStock": "0"
+  },
+  {
+    "imgSrc": "../../assets/book-red.jpg",
+    "character": "book-red",
+    "name": "Red book",
+    "description": "A book full of secrets.",
+    "priceInCZK": "499",
+    "inStock": "1"
+  },
+  {
+    "imgSrc": "../../assets/book-white.jpg",
+    "character": "book-white",
+    "name": "White book",
+    "description": "A book with white cover - great for personal drawings!",
+    "priceInCZK": "199",
+    "inStock": "7"
+  },
+  {
+    "imgSrc": "../../assets/book-yellow.jpg",
+    "character": "book-yellow",
+    "name": "Yellow book",
+    "description": "Very sunny book for you!",
+    "priceInCZK": "299",
+    "inStock": "0"
   }
 ]
