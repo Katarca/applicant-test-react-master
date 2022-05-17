@@ -59,7 +59,7 @@ const BookCard = ({ product, imgPath, addToCart }) => {
             value={number}
             disabled={checkMaxQuantity(product, cartItems)}
           />
-          <Button type="submit" disabled={checkMaxQuantity(product, cartItems)}>
+          <Button type="submit" disabled={!number}>
             <BodyText>Add to cart</BodyText>
           </Button>
         </AddForm>
