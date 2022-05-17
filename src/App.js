@@ -8,16 +8,16 @@ import Home from "./components/pages/Home";
 import Cart from "./components/pages/Cart";
 import CartContext from "./helpers/CartContext";
 
-// const cartLocalStorage = JSON.parse(localStorage.getItem("cart") || []);
+const cartLocalStorage = JSON.parse(localStorage.getItem("cart")) || [];
 
 function App() {
   const products = data;
 
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(cartLocalStorage);
 
-  // useEffect(() => {
-  //   localStorage.setItem("cart", JSON.stringify(cartItems));
-  // }, [cartItems]);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (event, product, number, setNumber) => {
     const itemExist = cartItems.find((item) => item.id === product.id);
