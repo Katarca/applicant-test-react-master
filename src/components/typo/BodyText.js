@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CartList, EmptyCartContainer } from "../../page-style/StyledApp";
 import { StyledBookCard } from "../BookCard/Styles/StyledBookCard";
 
 export const BodyText = styled.p`
@@ -17,6 +18,22 @@ export const BodyText = styled.p`
       margin-left: auto;
       padding: 5px;
       color: red;
+    }
+  }
+  ${EmptyCartContainer} & {
+    font-size: 2rem;
+  }
+  ${CartList} & {
+    &.name {
+      width: 50%;
+    }
+    &.amount {
+      width: 30%;
+      text-align: center;
+    }
+    &.price {
+      width: 20%;
+      text-align: right;
     }
   }
 `;

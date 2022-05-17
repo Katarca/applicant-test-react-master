@@ -11,7 +11,7 @@ export const StyledBookCard = styled.div`
   border-radius: 5px;
 `;
 
-export const AddSection = styled.div`
+export const AddForm = styled.form`
   width: 45%;
   margin-left: auto;
   padding: 5px;

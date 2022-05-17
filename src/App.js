@@ -1,127 +1,77 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { GlobalStyle } from "./";
-import { BookList, MainArea, StyledApp } from "./page-style/StyledApp";
+import { MainArea, StyledApp } from "./page-style/StyledApp";
 import Navbar from "./components/Navbar/Navbar";
 import data from "./data/books.json";
-import BookCard from "./components/BookCard/BookCard";
-import Img from "./components/Img/Img";
+import Home from "./components/pages/Home";
+import Cart from "./components/pages/Cart";
+import CartContext from "./helpers/CartContext";
 
 function App() {
-  return (
-    <Router>
-      <StyledApp>
-        <Navbar />
-        <MainArea>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" />
-          </Routes>
-        </MainArea>
-        <GlobalStyle />
-      </StyledApp>
-    </Router>
-  );
+  const products = data;
+  const [cartItems, setCartItems] = useState([]);
 
-  //   if (window.location.pathname === "/cart") {
-  //     return (
-  //       <div>
-  //         <button onClick={() => (window.location.href = "/")}>Books</button>
-  //         <button onClick={() => (window.location.href = "/")}>
-  //           Awesome book store
-  //         </button>
-  //         <button onClick={() => (window.location.href = "cart")}>
-  //           <img src={cart} />
-  //         </button>
-  //         <div>Name</div>
-  //         <div>Amount</div>
-  //         <div>Price</div>
-  //         <div>Black book</div>
-  //         <div>
-  //           2<button>Remove</button>
-  //         </div>
-  //         <div>598 CZK</div>
-  //         <div>Red book</div>
-  //         <div>
-  //           1<button>Remove</button>
-  //         </div>
-  //         <div>499 CZK</div>
-  //         <div>White book</div>
-  //         <div>
-  //           1<button>Remove</button>
-  //         </div>
-  //         <div>299 CZK</div>
-  //         <div>Total</div>
-  //         <div>1396 CZK</div>
-  //       </div>
-  //     );
-  //   }
-  //   return (
-  //     <div>
-  //       <button onClick={() => (window.location.href = "/")}>Books</button>
-  //       <button onClick={() => (window.location.href = "/")}>
-  //         Awesome book store
-  //       </button>
-  //       <button onClick={() => (window.location.href = "cart")}>
-  //         <img src={cart} />
-  //       </button>
-  //       <img src="./book-black.jpg" />
-  //       <div>Black book</div>
-  //       <div>Awesome book with black cover!</div>
-  //       <div>299 CZK</div>
-  //       <div>5+ in stock</div>
-  //       <input type="number" value={0} />
-  //       <button>Add to cart</button>
-  //       <img src="./book-blue.jpg" />
-  //       <div>Blue book</div>
-  //       <div>Literally awesomeness itself with blue cover.</div>
-  //       <div>310 CZK</div>
-  //       <div>3 in stock</div>
-  //       <input type="number" value={0} />
-  //       <button>Add to cart</button>
-  //       <img src="./book-green.jpg" />
-  //       <div>Green book</div>
-  //       <div>Great book with cover like grass.</div>
-  //       <div>310 CZK</div>
-  //       <div>Not available</div>
-  //       <input type="number" value={0} />
-  //       <button>Add to cart</button>
-  //       <img src="./book-red.jpg" />
-  //       <div>Red book</div>
-  //       <div>A book full of secrets.</div>
-  //       <div>499 CZK</div>
-  //       <div>1 in stock</div>
-  //       <input type="number" value={0} />
-  //       <button>Add to cart</button>
-  //       <img src="./book-white.jpg" />
-  //       <div>White book</div>
-  //       <div>A book with white cover - great for personal drawings!</div>
-  //       <div>199 CZK</div>
-  //       <div>5+ in stock</div>
-  //       <input type="number" value={0} />
-  //       <button>Add to cart</button>
-  //       <img src="./book-green.jpg" />
-  //       <div>Yellow book</div>
-  //       <div>Very sunny book for you!</div>
-  //       <div>299 CZK</div>
-  //       <div>Not available</div>
-  //       <input type="number" value={0} />
-  //       <button>Add to cart</button>
-  //     </div>
-  //   );
+  const addToCart = (event, product, number, setNumber) => {
+    const itemExist = cartItems.find((item) => item.id === product.id);
+    if (itemExist) {
+      setCartItems(
+        cartItems.map((item) =>
+          item.id === product.id
+            ? {
+                ...itemExist,
+                quantity: itemExist.quantity + Number(number),
+              }
+            : item
+        )
+      );
+    } else {
+      setCartItems([
+        ...cartItems,
+        {
+          ...product,
+          quantity: Number(number),
+        },
+      ]);
+    }
+    event.preventDefault();
+    setNumber("");
+  };
+
+  const removeItem = (product) => {
+    const productExist = cartItems.find((item) => item.id === product.id);
+    if (productExist.quantity === 1) {
+      setCartItems(cartItems.filter((item) => item.id !== product.id));
+    } else {
+      setCartItems(
+        cartItems.map((item) =>
+          item.id === product.id
+            ? { ...productExist, quantity: productExist.quantity - 1 }
+            : item
+        )
+      );
+    }
+  };
+
+  return (
+    <CartContext.Provider value={cartItems}>
+      <Router>
+        <StyledApp>
+          <Navbar />
+          <MainArea>
+            <Routes>
+              <Route
+                path="/"
+                element={<Home products={products} addToCart={addToCart} />}
+              />
+              <Route path="/cart" element={<Cart removeItem={removeItem} />} />
+            </Routes>
+          </MainArea>
+          <GlobalStyle />
+        </StyledApp>
+      </Router>
+    </CartContext.Provider>
+  );
 }
-
-const Home = () => {
-  return (
-    <BookList>
-      {data.map((book, i) => (
-        <BookCard
-          key={i}
-          bookObj={book}
-          imgPath={require("./assets/" + book.character + ".jpg")}
-        />
-      ))}
-    </BookList>
-  );
-};
 
 export default App;
